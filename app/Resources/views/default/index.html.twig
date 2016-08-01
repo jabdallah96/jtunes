@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Album Viewer</h1>
+
+                {{ form_start(form) }}
+                    {{ form_row(form.search) }}
+                    <div style="margin-left: 123px">
+                        {{ form_row(form.submit) }}
+                    </div>
+                {{ form_end(form) }}
+
+            </div>
+
+            <table id="albums">
+                <tr>
+                    <th>Album Name</th>
+                    <th>Year</th>
+                    <th>Number of<br>Songs</th>
+                    <th>Artists</th>
+                    <th>Rating</th>
+                </tr>
+                {% for album in albums %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('albumView', {'albumId': album.id}) }}">
+                                {{ album.name }}
+                            </a>
+                        </td>
+                        <td>{{ album.year }}</td>
+                        <td>{{ album.songs|length }}</td>
+                        <td>{{ album|artist }}</td>
+                        <td>{{ getAlbumRating(album.id) }}</td>
+                    </tr >
+                {% endfor %}
+            </table>
+
+            <br>
+            <div id="actions" style="margin-left: -40px">
+                <form>
+                    <input type="button" value="Manage songs" onclick="window.location.href='add/song'" />
+                    <input type="button" value="Add artist" onclick="window.location.href='add/artist'" />
+                    <input type="button" value="Add album" onclick="window.location.href='add/album'" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

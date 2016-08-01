@@ -1,0 +1,18 @@
+# src/AppBundle/Resources/config/doctrine/Artist.orm.yml
+AppBundle\Entity\Artist:
+    type: entity
+    table: artist
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+
+
+    oneToMany:
+            songs:
+                targetEntity: Song
+                mappedBy: artist

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><a href="{{ path('album_index') }}"> Album Viewer</a> -> Add Artist</h1>
+            </div>
+
+            {{ form_start(form) }}
+
+            <h3>Artists</h3>
+            <ul class="collection" data-prototype="{{ form_widget(form.collection.vars.prototype)|e('html_attr') }}">
+                {% for artist in form.collection %}
+                    <li>{{ form_row(artist.name) }}</li>
+                {% endfor %}
+            </ul>
+
+                {{ form_row(form.submit) }}
+
+            {{ form_end(form) }}
+
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var $collectionHolder;
+
+        var $addArtistLink = $('<a href="#" class="add_artist_link">Add an artist</a>');
+        var $newLinkLi = $('<li></li>').append($addArtistLink);
+
+        jQuery(document).ready(function() {
+            $collectionHolder = $('ul.collection');
+            $collectionHolder.append($newLinkLi);
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addArtistLink.on('click', function(e) {
+                e.preventDefault();
+                addArtistForm($collectionHolder, $newLinkLi);
+            });
+
+
+        });
+
+        function addArtistForm($collectionHolder, $newLinkLi) {
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            $collectionHolder.data('index', index + 1);
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+    </script>
+
+{% endblock %}

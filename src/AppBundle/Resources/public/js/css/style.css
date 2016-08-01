@@ -1,0 +1,136 @@
+body {
+    background: #F5F5F5;
+    font: 18px/1.5 sans-serif;
+}
+
+form {
+    margin-left: 35%;
+}
+
+h1, h2 {
+    line-height: 1.2;
+    margin: 0 0 .5em;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 21px;
+    margin-bottom: 1em;
+}
+
+p {
+    margin: 0 0 1em 0;
+}
+
+a {
+    color: #0000F0;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+code {
+    background: #F5F5F5;
+    max-width: 100px;
+    padding: 2px 6px;
+    word-wrap: break-word;
+}
+
+th {
+    text-align: center;
+    height: 35px;
+    background-color: #6699ff;
+    color: white;
+    padding: 5px;
+}
+
+td {
+    text-align: center;
+    padding: 5px;
+    border-top: 1px solid #ddd;
+}
+
+thead:first-child tr:first-child th:first-child, tbody:first-child tr:first-child td:first-child {
+    border-radius: 4px 0 0 0;
+}
+
+thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td:first-child {
+    border-radius: 0 0 0 4px;
+}
+
+th, td {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    padding: 5px 4px 6px 4px;
+    text-align: center;
+    vertical-align: top;
+    border-left: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f2f2f2;
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+#wrapper {
+    background: #FFF;
+    padding-left: 60px;
+    padding-right: 60px;
+    /*margin: 1em auto;*/
+    /*max-width: 1000px;*/
+    /*width: 95%;*/
+}
+
+#container {
+    padding: 2em;
+}
+
+#welcome {
+    margin-bottom: 2em;
+}
+
+#welcome h1 span {
+    display: block;
+    font-size: 75%;
+}
+
+#albums {
+    background: #F9F9F9;
+    /*max-width: 500px;*/
+    width: 100%;
+    /*margin-left: 50px;*/
+    /*margin-right: 50px;*/
+    border-collapse: separate;
+    border: 1px solid #ddd;
+    border-left: 0;
+    border-radius: 4px;
+    border-spacing: 0px;
+}
+
+
+
+#actions {
+    text-align: center;
+    width: 70%;
+}
+
+a:link {
+    color : #00a ;
+    text-decoration: none;
+}
+
+a:hover {
+    color : darkred;
+    text-decoration: none;
+}
+
+#rate {
+    display: table;
+    text-align: center;
+}

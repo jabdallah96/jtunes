@@ -1,0 +1,107 @@
+{% extends 'default/index.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        </br>
+
+        <h1><a href="{{ path('album_index') }}"> Album Viewer</a> -> Song Viewer</h1>
+
+        <table id="albums">
+            <tr>
+                <td colspan=5><div id="flash-notice"></div></td>
+            </tr>
+            <tr>
+                <th>Song Name</th>
+                <th>Genre</th>
+                <th>Year</th>
+                <th>Artists</th>
+                <th>My Rating</th>
+                <th>Options</th>
+            </tr>
+            {% for song in songs %}
+                <tr id={{ song.id }}>
+                    <td>{{ song.name }}</td>
+                    <td>{{ song.genre }}</td>
+                    <td>{{ song.album.year }}</td>
+                    <td>{{ song.artist.name }}</td>
+                    <td>
+                        <div id="rate">
+                            <form>
+                                <div class="rating-container" >
+                                    <select class="target" data-rating= {{ song.rating }} data-id="{{ song.id }}">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class = "edit-song" onclick="window.location.href='http://127.0.0.1:8000/add/edit/song?song-id={{ song.id }}'">Edit Song</button>
+                        <button type="button" class = "delete-song" data-id="{{ song.id }}">Delete Song</button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+        <br>
+
+        <div align="center">
+            <button type="button" class = "add-song" onclick="window.location.href='http://127.0.0.1:8000/add/song/new-song'">+ Add Song</button>
+        </div>
+
+        <br><br>
+    </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+        $('select').each(function (index) {
+            $(this).val($(this).data('rating'));
+
+        });
+
+        $(".target").change(function () {
+            var songId;
+            var rating;
+            songId = $(this).data('id');
+            rating = $(this).val();
+            $.ajax({
+                url: "{{ path('song_rating') }}",
+                data: {"songId": $(this).data("id"), "rating": $(this).val()},
+                type: "GET",
+                success: function (data) {
+                    $('#flash-notice').text(data.msg);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Error: ' + errorThrown);
+                }
+            });
+        });
+
+        $(".delete-song").click(function () {
+            $.ajax({
+                url: "{{ path('song_delete') }}",
+                data: {"songId": $(this).data("id")},
+                type: "GET",
+                success: function (data) {
+                    window.location='song'
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Error: ' + errorThrown);
+                }
+            });
+        });
+
+    </script>
+
+{% endblock %}

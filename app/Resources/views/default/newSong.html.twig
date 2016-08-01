@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><a href="{{ path('song_add') }}"> Song Viewer</a> -> Single song view</h1>
+            </div>
+            <div>
+                {{ form_start(form) }}
+
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.genre) }}
+                    {{ form_row(form.artist) }}
+                    {{ form_row(form.album) }}
+                    {{ form_row(form.rating) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+
+{% endblock %}

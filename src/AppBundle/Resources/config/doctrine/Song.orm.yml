@@ -1,0 +1,32 @@
+# src/AppBundle/Resources/config/doctrine/Song.orm.yml
+AppBundle\Entity\Song:
+    type: entity
+    repositoryClass: AppBundle\Entity\SongRepository
+    table: song
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+        genre:
+            type: string
+            length: 100
+        rating:
+            type: float
+
+    manyToOne:
+            artist:
+                targetEntity: Artist
+                inversedBy: songs
+                joinColumn:
+                    name: artist_id
+                    referencedColumnName: id
+            album:
+                targetEntity: Album
+                inversedBy: songs
+                joinColumn:
+                    name: album_id
+                    referencedColumnName: id

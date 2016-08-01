@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><a href="{{ path('album_index') }}"> Album Viewer</a> -> Add Album</h1>
+            </div>
+            <div>
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.year) }}
+                <ul class="songs" data-prototype="{{ form_widget(form.songs.vars.prototype)|e('html_attr') }}">
+                    {{ form_row(form.songs) }}
+                </ul>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var $collectionHolder;
+
+        var $addSongLink = $('<a href="#" class="add_Song_link">Add a Song</a>');
+        var $newLinkLi = $('<li></li>').append($addSongLink);
+
+        jQuery(document).ready(function () {
+
+            $collectionHolder = $('ul.songs');
+            $collectionHolder.append($newLinkLi);
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $addSongLink.on('click', function (e) {
+                e.preventDefault();
+                addSongForm($collectionHolder, $newLinkLi);
+            });
+        });
+
+        function addSongForm($collectionHolder, $newLinkLi) {
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            $collectionHolder.data('index', index + 1);
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+            addSongFormDeleteLink($newFormLi);
+        }
+
+        function addSongFormDeleteLink($songFormLi) {
+            var $removeFormA = $('<a href="#">  ╳ - Remove Song</a>');
+            $songFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                e.preventDefault();
+                $songFormLi.remove();
+            });
+        }
+    </script>
+
+{% endblock %}
